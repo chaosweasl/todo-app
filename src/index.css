@@ -1,3 +1,8 @@
+.alert {
+  background-color: rgb(255, 92, 92);
+  padding: 0em 1em 0em 1em;
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

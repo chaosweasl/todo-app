@@ -1,9 +1,13 @@
-import Message from './Message.tsx';
-import ListGroup from './components/ListGroup.tsx';
 import './App.css';
+import Alert from './components/Alert';
 
 function App() {
-  return <div><ListGroup></ListGroup></div>;
+
+  return (
+    <div className="alert alert-primary">
+      <Alert>Hello <span>World</span></Alert>
+    </div>
+  );
 }
 
 export default App;
