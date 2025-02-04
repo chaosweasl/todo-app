@@ -24,32 +24,31 @@ function ToDoList() {
         <div className="to-do-list">
 
             <h1>To-Do List</h1>
+            
 
-            <div className="input-group">
-                <span 
-                className="input-group-text"
-                id="input-group-left-example"><i className="bi bi-card-checklist"></i></span> 
-                <input
-                type="text"
-                className="form-control"
-                placeholder="Enter a task..."
-                aria-label="Task"
-                aria-describedby="input-group-left"/>
-            </div>
+            <div className="container">
+                <div className="row justify-content-center">
+                    <div className="col-12 col-md-8 col-lg-6">
+                        <div className="input-group">
+                            <span 
+                            className="input-group-text"
+                            id="input-group-left-example"><i className="bi bi-card-checklist"></i></span> 
+                            <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Enter a task..."
+                            aria-label="Task"
+                            aria-describedby="input-group-left"/>
 
-            <div>
-                <input 
-                    className="input-group"
-                    type="text"
-                    placeholder="Enter a task..."
-                    value={newTask}
-                    onChange={handleInputChange}/>
+                            <button
+                            className="btn btn-outline-secondary"
+                            id="input-group-button-right"
+                            onClick={addTask}>
+                                Add Task</button>
+                        </div>
 
-                <button
-                    className="add-button"
-                    onClick={addTask}>
-                        Add
-                </button>
+                    </div>
+                </div>
             </div>
 
             <ol>
