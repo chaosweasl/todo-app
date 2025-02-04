@@ -16,64 +16,48 @@ function ToDoList() {
 
     }
 
-    function moveTask(index) {
-
-    }
-
     return (
-        <div className="to-do-list">
-
-            <h1>To-Do List</h1>
+        <div className="container mt-4">
+            <h1 className="text-center mb-4">To-Do List</h1>
             
+            <div className="row justify-content-center">
+                <div className="col-12 col-md-8 col-lg-6">
+                    <div className="input-group">
+                        <span className="input-group-text">
+                            <i className="bi bi-card-checklist"/>
+                        </span> 
+                        <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Enter a task..."/>
 
-            <div className="container">
-                <div className="row justify-content-center">
-                    <div className="col-12 col-md-8 col-lg-6">
-                        <div className="input-group">
-                            <span 
-                            className="input-group-text"
-                            id="input-group-left-example"><i className="bi bi-card-checklist"></i></span> 
-                            <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Enter a task..."
-                            aria-label="Task"
-                            aria-describedby="input-group-left"/>
-
-                            <button
-                            className="btn btn-outline-secondary"
-                            id="input-group-button-right"
-                            onClick={addTask}>
-                                Add Task</button>
-                        </div>
-
+                        <button
+                        className="btn btn-primary"
+                        onClick={addTask}>
+                            Add Task
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <ol>
+            <ul className="list-group mt-4 col-14 col-md-10 col-lg-8 mx-auto">
                 {tasks.map((task, index) => 
-                    <li key={index}>
-                        <span className="text">{task}</span>
-                        <button 
-                        className="delete-button"
-                        onClick={() => deleteTask(index)}>
-                            Delete
-                        </button>
-                        <button 
-                        className="move-button"
-                        onClick={() => moveTask(index)}>
-                            ↑
-                        </button>
-                        <button 
-                        className="move-button"
-                        onClick={() => moveTask(index)}>
-                            ↓
-                        </button>
-                    </li>
-                )}
-            </ol>
+                /*I'm using label here because when selecting the checkbox, by clicking the whole thing it can
+                get selected whereas using <li> doesn't and it's inconvenient*/
 
+                    <label key={index} className="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <input className="form-check-input me-2" type="checkbox"/>
+                            <span className="flex-grow-1">{task}</span>
+                        </div>
+                        <button
+                            className="btn btn-danger btn-sm"
+                            onClick={() => deleteTask(index)}>
+                                <i className="bi bi-trash"></i>
+                        </button>
+                    </label>
+                )}
+            </ul>
         </div>
     )
 }
