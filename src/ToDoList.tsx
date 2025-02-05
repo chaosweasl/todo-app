@@ -1,8 +1,9 @@
 import { useState } from "react";
 
 function ToDoList() {
-    const[tasks, setTasks] = useState(["Shower", "Do homework", "Walk the dog"]);
-    const[newTask, setNewTask] = useState("");
+    const [tasks, setTasks] = useState(["Shower", "Do homework", "Walk the dog"]);
+    const [newTask, setNewTask] = useState("");
+    const [draggedTaskIndex, setDraggedTaskIndex] = useState<number | null>(null);
 
     /*event is an event object that comes from an event (like typing
     in an input box, which happens to be the case, occurs)
@@ -19,7 +20,7 @@ function ToDoList() {
         /*...t creates a new array because JSX doesn't allow to modify already existing arrays
         so it's necessary to make a new one with the changes added to it
         kinda weird ikr*/
-        if (newTask.trim() != "") {
+        if (newTask.trim() !== "") {
             /*trim() is a js function that removes white spaces in a string,
             basically only leaves actual text to be modified
             */
@@ -35,6 +36,25 @@ function ToDoList() {
         by creating a new one*/
         const updatedTasks = tasks.filter((_, i) => i != index);
         setTasks(updatedTasks);
+    }
+
+    function handleDragStart(index: number) {
+        setDraggedTaskIndex(index);
+    }
+
+    function handleDragOver(event: React.DragEvent<HTMLLabelElement>) {
+        event.preventDefault(); // Allows dropping
+    }
+
+    function handleDrop(targetIndex: number) {
+        if (draggedTaskIndex === null || draggedTaskIndex === targetIndex) return;
+
+        const updatedTasks = [...tasks];
+        const [movedTask] = updatedTasks.splice(draggedTaskIndex, 1);
+        updatedTasks.splice(targetIndex, 0, movedTask);
+
+        setTasks(updatedTasks);
+        setDraggedTaskIndex(null);
     }
 
     return (
@@ -69,7 +89,14 @@ function ToDoList() {
                 /*I'm using label here because when selecting the checkbox, by clicking the whole thing it can
                 get selected whereas using <li> doesn't and it's inconvenient*/
 
-                    <label key={index} className="list-group-item d-flex justify-content-between align-items-center">
+                    <label 
+                        key={index}
+                        className="list-group-item d-flex justify-content-between align-items-center"
+                        draggable
+                        onDragStart={() => handleDragStart(index)}
+                        onDragOver={handleDragOver}
+                        onDrop={() => handleDrop(index)}
+                    >
                         <div>
                             <input className="form-check-input me-2" type="checkbox"/>
                             <span className="flex-grow-1">{task}</span>
