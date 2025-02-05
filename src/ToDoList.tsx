@@ -4,16 +4,37 @@ function ToDoList() {
     const[tasks, setTasks] = useState(["Shower", "Do homework", "Walk the dog"]);
     const[newTask, setNewTask] = useState("");
 
-    function handleInputChange(event) {
+    /*event is an event object that comes from an event (like typing
+    in an input box, which happens to be the case, occurs)
+    
+    target is an HTML element that triggered the event (the input box)
+    
+    value is just the text inside*/
+    function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
         setNewTask(event.target.value);
+        /*this adds the new task to be the value inside the
+        input box after pressing the add button*/ 
     }
-
     function addTask() {
-
+        /*...t creates a new array because JSX doesn't allow to modify already existing arrays
+        so it's necessary to make a new one with the changes added to it
+        kinda weird ikr*/
+        if (newTask.trim() != "") {
+            /*trim() is a js function that removes white spaces in a string,
+            basically only leaves actual text to be modified
+            */
+            setTasks(t => [newTask, ...t]);
+            setNewTask("");
+        }
     }
 
-    function deleteTask(index) {
-
+    function deleteTask(index: number) {
+        /*filter() gets all the tasks that respect the condition,
+        in this case everything except the one with the index that
+        we're trying to delete, it basically updates the array
+        by creating a new one*/
+        const updatedTasks = tasks.filter((_, i) => i != index);
+        setTasks(updatedTasks);
     }
 
     return (
@@ -29,7 +50,10 @@ function ToDoList() {
                         <input
                         type="text"
                         className="form-control"
-                        placeholder="Enter a task..."/>
+                        placeholder="Enter a task..."
+                        value={newTask}
+                        onChange={handleInputChange}
+                        maxLength={90}/>
 
                         <button
                         className="btn btn-primary"
@@ -52,6 +76,8 @@ function ToDoList() {
                         </div>
                         <button
                             className="btn btn-danger btn-sm"
+                            //() => is necessary because otherwise it just triggers the event automatically
+                            //why? who knows man
                             onClick={() => deleteTask(index)}>
                                 <i className="bi bi-trash"></i>
                         </button>
