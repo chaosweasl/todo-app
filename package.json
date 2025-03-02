@@ -1,5 +1,6 @@
 {
   "name": "todo-app",
+  "homepage": "https://chaosweasl.github.io/todo-app/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,11 +8,14 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "gh-pages": "^6.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
@@ -38,6 +42,5 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/chaosweasl/todo-app/issues"
-  },
-  "homepage": "https://github.com/chaosweasl/todo-app#readme"
+  }
 }
